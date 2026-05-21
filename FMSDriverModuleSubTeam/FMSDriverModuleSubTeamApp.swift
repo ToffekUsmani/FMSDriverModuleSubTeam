@@ -11,7 +11,7 @@ import SwiftUI
 struct FMSDriverModuleSubTeamApp: App {
     var body: some Scene {
         WindowGroup {
-            DriverAppContainerView()
+            DriverDashBoardRootView()
         }
     }
 }

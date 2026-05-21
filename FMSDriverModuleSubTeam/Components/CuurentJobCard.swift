@@ -3,115 +3,141 @@
 //  FMSDriverModuleSubTeam
 //
 //  Created by Toffek Usmani on 19/05/26.
-//
 
 import SwiftUI
 
 struct CuurentJobCard: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 0){
-            RoundedRectangle(cornerRadius: 0)
-                .fill( LinearGradient(colors: [ Color("F6C944").opacity(0.3),  Color("F6C944").opacity(0.08)], startPoint: .leading, endPoint: .trailing ))
-                .frame(height: 6)
-            //main content
+        VStack(alignment: .leading, spacing: 0) {
+            
+            UnevenRoundedRectangle(
+                topLeadingRadius: 16,
+                bottomLeadingRadius: 0,
+                bottomTrailingRadius: 0,
+                topTrailingRadius: 16
+            )
+            .fill(LinearGradient(
+                colors: [Color.blue.opacity(0.4), Color.blue.opacity(0.0)],
+                startPoint: .leading,
+                endPoint: .trailing
+            ))
+            .frame(height: 6)
+
+            // Main content
             VStack(alignment: .leading, spacing: 16) {
-                // Pickup
-                HStack(spacing: 10) {
-                    Circle()
-                        .fill(Color.blue)
-                        .frame(width: 10, height: 10)
-                    
-                    VStack(alignment: .leading, spacing: 2) {
-                       Text("PICKUP")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(Color.blue)
-                            .tracking(0.5)
-                        
-                        Text("Agra")//Text(trip.startName ?? "Origin")
-                            .font(.system(size: 15, weight: .semibold))
-                        
+
+                // Truck icon badge
+                HStack(spacing: 12) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(Color(.systemGray5))  // Fix 5 — adaptive
+                            .frame(width: 42, height: 42)
+                        Image(systemName: "truck.box")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundStyle(.primary)
                     }
-                } //pickuo hstack
-                
-                // Delivery
-                HStack(spacing: 10) {
-                    Circle()
-                        .fill(.green)
-                        .frame(width: 10, height: 10)
-                    
+
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("DELIVERY")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundStyle(.green)
+                        Text("VEHICLE")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundStyle(.secondary)
                             .tracking(0.5)
-                        
-                        Text("Delhi")//Text(trip.endName ?? "Destination")
-                        
+                        HStack(spacing: 6) {
+                            Text("TX-9998")
+                                .font(.system(size: 15, weight: .bold))
+                            Text("•")
+                                .foregroundStyle(.secondary)
+                            Text("Volovo")
+                                .font(.system(size: 14, weight: .bold))
+                        }
                     }
-                } //delivery hstack
-                
+                    Spacer()
+                }
+                HStack(alignment: .top, spacing: 12) {
+
+                    VStack(spacing: 0) {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 10, height: 10)
+                            .padding(.top, 4)
+                        Rectangle()
+                            .fill(Color(.separator))
+                            .frame(width: 1.5, height: 38)
+                        Circle()
+                            .fill(Color.green)
+                            .frame(width: 10, height: 10)
+                            .padding(.bottom, 4)
+                    }
+
+                    VStack(alignment: .leading, spacing: 14) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("PICKUP")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(.blue)
+                                .tracking(0.5)
+                            Text("Agra")
+                                .font(.system(size: 15, weight: .semibold))
+                        }
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("DELIVERY")
+                                .font(.system(size: 11, weight: .semibold))
+                                .foregroundStyle(.green)
+                                .tracking(0.5)
+                            Text("Delhi")
+                                .font(.system(size: 15, weight: .semibold))
+                        }
+                    }
+                }
+
                 Divider()
-                
-                // Time & Cargo row
+
+                // Time & Duration row
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("TIME")
+                        Text("START TIME")
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundStyle(.secondary)
                             .tracking(0.5)
-                        
                         Text("Today, 4:30pm")
                             .font(.system(size: 14, weight: .semibold))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
+
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("CARGO")
+                        Text("DURATION")
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundStyle(.secondary)
                             .tracking(0.5)
-                        
-                        Text("Automotive Components(4.6t)")
+                        Text("4h 40m")
                             .font(.system(size: 14, weight: .semibold))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                }     // Time & Cargo row
-                
-                //buttons
-                HStack(spacing: 10) {
-                    
-                    Button{
-                        
-                        
-                    } label: {
-                        Text("Start Job")
-                            .font(.system(size: 15, weight: .bold))
-                            .foregroundStyle(.primary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 13)
-                            .background(.blue)
-                            .cornerRadius(12)
-                    }
-                    .buttonStyle(.plain)
-                    
-                    Button{
-                        
-                        
-                    } label: {
-                        Text("Details")
-                            .font(.system(size: 15, weight: .bold))
-                            .foregroundStyle(.primary)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 13)
-                            .background(.gray)
-                            .cornerRadius(12)
-                    }
-                    .buttonStyle(.plain)
-                    
                 }
-            } //main content
+
+                // Button
+                Button {
+                    
+                } label: {
+                    Label("Start Inspection", systemImage: "list.bullet.clipboard")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 13)
+                        .background(Color.blue)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                }
+                .buttonStyle(.plain)
+
+            }
+            .padding(18)
         }
-        .padding()
+        .background(Color(.secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(.separator), lineWidth: 0.5)
+        )
+        
     }
 }
 

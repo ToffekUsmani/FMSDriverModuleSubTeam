@@ -11,15 +11,19 @@ struct DriverDashBoardRootView: View {
     var body: some View {
         TabView{
             Tab("Home", systemImage: "house.fill") {
-                NavigationStack{
-                    Text("Home")
-                }
-               
+                
+                HomeView()
+                
+                
             }
             Tab("Trips", systemImage: "map.fill") {
-                NavigationStack{
-                    Text("trips")
-                }
+                
+                TripsView()
+                
+            }
+            
+            Tab("Issues", systemImage: "gearshape.2.fill") {
+                IssuesView()
             }
         }
     }

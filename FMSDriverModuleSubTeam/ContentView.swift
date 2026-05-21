@@ -1,24 +1,32 @@
-//
-//  ContentView.swift
-//  FMSDriverModuleSubTeam
-//
-//  Created by Toffek Usmani on 19/05/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+
+    @State private var searchText = ""
+
+    let fruits = ["Apple", "Banana", "Orange", "Mango", "Grapes"]
+
+    var filteredFruits: [String] {
+        if searchText.isEmpty {
+            return fruits
+        } else {
+            return fruits.filter {
+                $0.localizedCaseInsensitiveContains(searchText)
+            }
         }
-        .padding()
+    }
+
+    var body: some View {
+        NavigationStack {
+            List(filteredFruits, id: \.self) { fruit in
+                Text(fruit)
+            }
+            .navigationTitle("Search")
+            .searchable(text: $searchText,
+                        prompt: "Search fruits")
+        }
     }
 }
-
 #Preview {
     ContentView()
 }
