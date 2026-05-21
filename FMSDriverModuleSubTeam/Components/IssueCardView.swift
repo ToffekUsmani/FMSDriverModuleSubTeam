@@ -2,18 +2,7 @@ import SwiftUI
 
 struct IssueCardView: View {
     
-    let issue: Issue = Issue(
-        id: UUID(),
-        tripId: UUID(),
-        vehicleId: UUID(),
-        driverId: UUID(),
-        type: .during,
-        checklist: InspectionChecklist(),
-        defectFound: true,
-        defectDescription: "Brake response felt delayed during inspection.",
-        photoUrls: [],
-        createdAt: .now
-    )
+    let issue: Issue
     
     // Temporary hardcoded vehicle number will fetch it from vechile table by using vechile.id
     let vehicleNumber = "UP 80 AB 4587"
@@ -125,7 +114,18 @@ struct IssueCardView: View {
 #Preview {
     
     
-    IssueCardView()
+    IssueCardView(issue: Issue(
+        id: UUID(),
+        tripId: UUID(),
+        vehicleId: UUID(),
+        driverId: UUID(),
+        type: .during,
+        checklist: InspectionChecklist(),
+        defectFound: true,
+        defectDescription: "Brake response felt delayed during inspection.",
+        photoUrls: [],
+        createdAt: .now
+    ))
         .padding()
     
     

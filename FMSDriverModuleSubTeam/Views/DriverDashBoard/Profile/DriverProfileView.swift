@@ -8,8 +8,8 @@ struct DriverProfileView: View {
         id: UUID(),
         authId: UUID(),
         fullName: "Vikram Singh",
-        email: "vikram.singh@fleetops.com",
-        phoneNumber: "+91 9876543210",
+        email: "vikram.singh@fleetmail.com",
+        phoneNumber: "+91 91234 56789",
         role: .driver,
         profileImageUrl: nil,
         isActive: true,
@@ -33,7 +33,7 @@ struct DriverProfileView: View {
                         
                         // Profile Image
                         Image(.driverSProfile)
-//                        Image(systemName: "person.crop.circle.fill")
+                        //                        Image(systemName: "person.crop.circle.fill")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 100, height: 100)
@@ -59,7 +59,7 @@ struct DriverProfileView: View {
                             .foregroundStyle(.secondary)
                     }
                     
-                   
+                    
                 }
                 
                 // MARK: - Stats
@@ -130,14 +130,14 @@ struct DriverProfileView: View {
                         y: 4
                     )
                     
-
+                    
                 }
                 
                 // MARK: - Settings
                 
                 VStack(alignment: .leading, spacing: 18) {
                     
-                
+                    
                     Text("Settings")
                         .font(.system(size: 25, weight: .bold))
                     
@@ -145,11 +145,11 @@ struct DriverProfileView: View {
                         
                         NavigationLink {
                             
-                            EmptyView()
+                            EditPersonalInfoView(driver: driver)
                             
                         } label: {
                             
-                            settingsRow(
+                            SettingRow(
                                 icon: "person",
                                 title: "Personal Information"
                             )
@@ -164,7 +164,7 @@ struct DriverProfileView: View {
                             
                         } label: {
                             
-                            settingsRow(
+                            SettingRow(
                                 icon: "person.text.rectangle",
                                 title: "Documents & Licenses"
                             )
@@ -178,7 +178,7 @@ struct DriverProfileView: View {
                             
                         } label: {
                             
-                            settingsRow(
+                            SettingRow(
                                 icon: "bell",
                                 title: "Notification Settings"
                             )
@@ -193,7 +193,7 @@ struct DriverProfileView: View {
                             
                         } label: {
                             
-                            settingsRow(
+                            SettingRow(
                                 icon: "questionmark.circle",
                                 title: "Support & Help"
                             )
@@ -232,7 +232,11 @@ struct DriverProfileView: View {
                 }
             }
             .padding()
+            
+            Spacer()
+                .frame(height: 90)
         }
+        .scrollIndicators(.hidden)
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
@@ -240,66 +244,12 @@ struct DriverProfileView: View {
 }
 
 
-// MARK: - Stat Card
 
-extension DriverProfileView {
-    
-    func statCard(
-        title: String,
-        value: String
-    ) -> some View {
-        
-        VStack(spacing: 14) {
-            
-            Text(title)
-                .font(.headline)
-                .foregroundStyle(.secondary)
-            
-            Text(value)
-                .font(.title.bold())
-                .foregroundStyle(.blue)
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 120)
-        .background(Color(.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 22))
-        .shadow(
-            color: .black.opacity(0.04),
-            radius: 8,
-            x: 0,
-            y: 4
-        )
-    }
-    
-    func settingsRow(
-        icon: String,
-        title: String
-    ) -> some View {
-        
-        HStack(spacing: 18) {
-            
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundStyle(.secondary)
-                .frame(width: 28)
-            
-            Text(title)
-                .font(.title3)
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .font(.headline)
-                .foregroundStyle(.tertiary)
-        }
-        .padding(22)
-    }
-}
 
 #Preview {
     
     NavigationStack{
         DriverProfileView()
     }
- 
+    
 }

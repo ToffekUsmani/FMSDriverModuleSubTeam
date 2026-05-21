@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State var isAvailable: Bool = false
+    @State private var showProfile = false
     var body: some View {
         
         NavigationStack {
@@ -30,8 +31,9 @@ struct HomeView: View {
                         
                         Spacer()
                         
+                        
                         Button {
-                            
+                            showProfile = true
                         } label: {
                             Circle()
                                 .fill(.gray.opacity(0.3))
@@ -42,6 +44,7 @@ struct HomeView: View {
                                         .foregroundStyle(.black)
                                 )
                         }
+                        
                     } //name+profile
                     ReadyForTripsCard(isReady: $isAvailable)
                     //current or next trips(active trip panel)
@@ -64,7 +67,7 @@ struct HomeView: View {
                         Text("Upcoming Trips")
                             .font(.system(size: 18, weight: .bold))
                         
-                        TripRowCard()
+//                        TripRowCard()
                         
                         
                         //                    Text("No further trips assigned today")
@@ -156,6 +159,9 @@ struct HomeView: View {
             } //main scrollView
             .padding(.horizontal)
             .scrollIndicators(.hidden)
+            .navigationDestination(isPresented: $showProfile) {
+                DriverProfileView()
+            }
             
         } //Navstack
     }

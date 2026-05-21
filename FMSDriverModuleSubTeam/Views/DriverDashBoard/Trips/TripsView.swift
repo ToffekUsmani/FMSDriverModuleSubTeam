@@ -3,7 +3,10 @@ import SwiftUI
 struct TripsView: View {
     
     @State private var selectedTab: TripTab = .upcoming
-    @State private var searchText = ""
+    
+    @State private var TripVM = TripViewModel()
+    
+    @State private var selectedTrip: Trip? = nil
     
     var body: some View {
         
@@ -36,7 +39,7 @@ struct TripsView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
                     
-                    TextField("Search trips", text: $searchText)
+                    TextField("Search trips", text: $TripVM.searchText)
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)
@@ -51,14 +54,26 @@ struct TripsView: View {
                         
                         if selectedTab == .upcoming {
                             
-                            ForEach(0..<3, id: \.self) { _ in
-                             TripRowCard()
+                            ForEach(
+                                TripVM.filteredTrips.filter {
+                                    $0.status == .notStarted
+                                }
+                            ) { trip in
+                                
+                                TripRowCard(trip: trip)
+                                    .onTapGesture {
+                                        
+                                        selectedTrip = trip
+                                    }
                             }
                             
                         } else {
                             
-                            ForEach(0..<2, id: \.self) { _ in
-                                TripRowCard()
+                            ForEach(TripVM.filteredTrips.filter{$0.status == .completed}){ trip in
+                                TripRowCard(trip: trip)
+                                    .onTapGesture {
+                                            selectedTrip = trip
+                                        }
                             }
                         }
                     }
@@ -66,6 +81,12 @@ struct TripsView: View {
                 .scrollIndicators(.hidden)
             }
             .padding()
+            .navigationDestination(
+                item: $selectedTrip
+            ) { trip in
+                
+                TripDetailView(trip: trip)
+            }
             
         }
     }

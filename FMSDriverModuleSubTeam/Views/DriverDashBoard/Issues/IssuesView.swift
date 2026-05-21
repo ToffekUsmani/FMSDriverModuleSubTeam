@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct IssuesView: View {
-    @State private var searchText = ""
+    
+    @State private var issueVM = IssuesViewModel()
     
     var body: some View {
         
@@ -26,23 +27,24 @@ struct IssuesView: View {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
                     
-                    TextField("Search trips", text: $searchText)
+                    TextField(
+                        "Search issues",
+                        text: $issueVM.searchText
+                    )
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 14)
                 .background(in: RoundedRectangle(cornerRadius: 16))
-             
-                
                 // Scroll Only Data
                 
                 ScrollView(showsIndicators: false) {
                     
                     LazyVStack(spacing: 18) {
                         
-                        IssueCardView()
-                        IssueCardView()
-                        IssueCardView()
-                        IssueCardView()
+                        ForEach(issueVM.filteredIssues) { issue in
+                            
+                            IssueCardView(issue: issue)
+                        }
                     }
                     .padding(.top, 4)
                     .padding(.bottom, 24)
@@ -51,11 +53,10 @@ struct IssuesView: View {
             }
             .padding()
             .background(Color(.systemGroupedBackground))
+            
         } //navstack
     }
 }
-
-
 
 #Preview {
     IssuesView()
